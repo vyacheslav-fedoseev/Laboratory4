@@ -183,19 +183,34 @@ public class GraphicsDisplay extends JPanel {
         canvas.setPaint(Color.RED);
         // Шаг 2 - Организовать цикл по всем точкам графика
         for (Double[] point : graphicsData) {
-            // Инициализировать эллипс как объект для представления маркера
-            Ellipse2D.Double marker = new Ellipse2D.Double();
-            /* Эллипс будет задаваться посредством указания координат его центра
-             * и угла прямоугольника, в который он вписан
-             */
-            // Центр - в точке (x,y)
             Point2D.Double center = xyToPoint(point[0], point[1]);
-            // Угол прямоугольника - отстоит на расстоянии (3,3)
-            Point2D.Double corner = shiftPoint(center, 3, 3);
-            // Задать эллипс по центру и диагонали
-            marker.setFrameFromCenter(center, corner);
-            canvas.draw(marker); // Начертить контур маркера
-            canvas.fill(marker); // Залить внутреннюю область маркера
+            GeneralPath path = new GeneralPath();
+            path.moveTo(center.x+0,center.y-5);
+            path.lineTo(center.x-1,center.y-4);
+            path.lineTo(center.x-1,center.y-2);
+            path.lineTo(center.x-2,center.y-2);
+            path.lineTo(center.x-3,center.y-1);
+            path.lineTo(center.x-4,center.y-1);
+            path.lineTo(center.x-5,center.y+0);
+            path.lineTo(center.x-4,center.y+1);
+            path.lineTo(center.x-3,center.y+1);
+            path.lineTo(center.x-2,center.y+2);
+            path.lineTo(center.x-1,center.y+2);
+            path.lineTo(center.x-1,center.y+4);
+            path.lineTo(center.x+0,center.y+5);
+            path.lineTo(center.x+1,center.y+4);
+            path.lineTo(center.x+1,center.y+2);
+            path.lineTo(center.x+2,center.y+2);
+            path.lineTo(center.x+3,center.y+1);
+            path.lineTo(center.x+4,center.y+1);
+            path.lineTo(center.x+5,center.y+0);
+            path.lineTo(center.x+4,center.y-1);
+            path.lineTo(center.x+3,center.y-1);
+            path.lineTo(center.x+2,center.y-2);
+            path.lineTo(center.x+1,center.y-2);
+            path.lineTo(center.x+1,center.y-4);
+            path.lineTo(center.x+0,center.y-5);
+            canvas.draw(path);
         }
     }
 
