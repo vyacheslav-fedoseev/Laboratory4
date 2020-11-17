@@ -41,7 +41,7 @@ public class GraphicsDisplay extends JPanel {
         // Сконструировать необходимые объекты, используемые в рисовании
         // Перо для рисования графика
         graphicsStroke = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_ROUND, 10.0f, new float[] {2,1,1,1,1,1,1,1,2,1,1,1,2,1}, 0.0f);
+                BasicStroke.JOIN_ROUND, 10.0f, new float[] {2,1,1,1,1,1,1,1,2,1,1,1,2}, 0.0f);
         // Перо для рисования осей координат
         axisStroke = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
@@ -172,7 +172,15 @@ public class GraphicsDisplay extends JPanel {
         // Отобразить график
         canvas.draw(graphics);
     }
-
+    protected boolean isSumLessThanTen(Double[] point) {
+        int valueFuncInt = point[1].intValue();
+        int sum = 0;
+        while(valueFuncInt > 0) {
+            sum += valueFuncInt % 10;
+            valueFuncInt /= 10;
+        }
+        return sum < 10 ? true : false;
+    }
     // Отображение маркеров точек, по которым рисовался график
     protected void paintMarkers(Graphics2D canvas) {
         // Шаг 1 - Установить специальное перо для черчения контуров маркеров
@@ -181,36 +189,39 @@ public class GraphicsDisplay extends JPanel {
         canvas.setColor(Color.RED);
         // Выбрать красный цвет для закрашивания маркеров внутри
         canvas.setPaint(Color.RED);
+
         // Шаг 2 - Организовать цикл по всем точкам графика
         for (Double[] point : graphicsData) {
+        if(isSumLessThanTen(point)) {
             Point2D.Double center = xyToPoint(point[0], point[1]);
             GeneralPath path = new GeneralPath();
-            path.moveTo(center.x+0,center.y+5);
-            path.lineTo(center.x-1,center.y+4);
-            path.lineTo(center.x-1,center.y+2);
-            path.lineTo(center.x-2,center.y+2);
-            path.lineTo(center.x-3,center.y+1);
-            path.lineTo(center.x-4,center.y+1);
-            path.lineTo(center.x-5,center.y+0);
-            path.lineTo(center.x-4,center.y-1);
-            path.lineTo(center.x-3,center.y-1);
-            path.lineTo(center.x-2,center.y-2);
-            path.lineTo(center.x-1,center.y-2);
-            path.lineTo(center.x-1,center.y-4);
-            path.lineTo(center.x+0,center.y-5);
-            path.lineTo(center.x+1,center.y-4);
-            path.lineTo(center.x+1,center.y-2);
-            path.lineTo(center.x+2,center.y-2);
-            path.lineTo(center.x+3,center.y-1);
-            path.lineTo(center.x+4,center.y-1);
-            path.lineTo(center.x+5,center.y+0);
-            path.lineTo(center.x+4,center.y+1);
-            path.lineTo(center.x+3,center.y+1);
-            path.lineTo(center.x+2,center.y+2);
-            path.lineTo(center.x+1,center.y+2);
-            path.lineTo(center.x+1,center.y+4);
-            path.lineTo(center.x+0,center.y+5);
+            path.moveTo(center.x + 0, center.y + 5);
+            path.lineTo(center.x - 1, center.y + 4);
+            path.lineTo(center.x - 1, center.y + 2);
+            path.lineTo(center.x - 2, center.y + 2);
+            path.lineTo(center.x - 3, center.y + 1);
+            path.lineTo(center.x - 4, center.y + 1);
+            path.lineTo(center.x - 5, center.y + 0);
+            path.lineTo(center.x - 4, center.y - 1);
+            path.lineTo(center.x - 3, center.y - 1);
+            path.lineTo(center.x - 2, center.y - 2);
+            path.lineTo(center.x - 1, center.y - 2);
+            path.lineTo(center.x - 1, center.y - 4);
+            path.lineTo(center.x + 0, center.y - 5);
+            path.lineTo(center.x + 1, center.y - 4);
+            path.lineTo(center.x + 1, center.y - 2);
+            path.lineTo(center.x + 2, center.y - 2);
+            path.lineTo(center.x + 3, center.y - 1);
+            path.lineTo(center.x + 4, center.y - 1);
+            path.lineTo(center.x + 5, center.y + 0);
+            path.lineTo(center.x + 4, center.y + 1);
+            path.lineTo(center.x + 3, center.y + 1);
+            path.lineTo(center.x + 2, center.y + 2);
+            path.lineTo(center.x + 1, center.y + 2);
+            path.lineTo(center.x + 1, center.y + 4);
+            path.lineTo(center.x + 0, center.y + 5);
             canvas.draw(path);
+            }
         }
     }
 
