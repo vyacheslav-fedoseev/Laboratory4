@@ -28,6 +28,7 @@ public class MainFrame extends JFrame {
     // Пункты меню
     private JCheckBoxMenuItem showAxisMenuItem;
     private JCheckBoxMenuItem showMarkersMenuItem;
+    private JCheckBoxMenuItem showIntGraphicsMenuItem;
     // Компонент-отображатель графика
     private GraphicsDisplay display = new GraphicsDisplay();
     // Флаг, указывающий на загруженность данных графика
@@ -66,6 +67,8 @@ public class MainFrame extends JFrame {
         // Создать пункт меню "График"
         JMenu graphicsMenu = new JMenu("График");
         menuBar.add(graphicsMenu);
+
+
         // Создать действие для реакции на активацию элемента "Показывать оси координат"
         Action showAxisAction = new AbstractAction("Показывать оси координат") {
             public void actionPerformed(ActionEvent event) {
@@ -79,6 +82,9 @@ public class MainFrame extends JFrame {
         graphicsMenu.add(showAxisMenuItem);
         // Элемент по умолчанию включен (отмечен флажком)
         showAxisMenuItem.setSelected(true);
+
+
+
         // Повторить действия для элемента "Показывать маркеры точек"
         Action showMarkersAction = new AbstractAction("Показывать маркеры точек") {
             public void actionPerformed(ActionEvent event) {
@@ -90,6 +96,24 @@ public class MainFrame extends JFrame {
         graphicsMenu.add(showMarkersMenuItem);
         // Элемент по умолчанию включен (отмечен флажком)
         showMarkersMenuItem.setSelected(true);
+
+
+
+
+
+        // Создать действие для элемента "Отобразить функцию «Целая часть f»"
+        Action showIntGraphicsAction = new AbstractAction("Отобразить функцию «Целая часть f»") {
+            public void actionPerformed(ActionEvent e) {
+                display.setShowIntGraphics(showIntGraphicsMenuItem.isSelected());
+            }
+        };
+        showIntGraphicsMenuItem = new JCheckBoxMenuItem(showIntGraphicsAction);
+        graphicsMenu.add(showIntGraphicsMenuItem);
+        showIntGraphicsMenuItem.setSelected(false);
+
+
+
+
 // Зарегистрировать обработчик событий, связанных с меню "График"
         graphicsMenu.addMenuListener(new GraphicsMenuListener());
 // Установить GraphicsDisplay в цент граничной компоновки
@@ -155,6 +179,7 @@ public class MainFrame extends JFrame {
             // Доступность или недоступность элементов меню "График" определяется загруженностью данных
             showAxisMenuItem.setEnabled(fileLoaded);
             showMarkersMenuItem.setEnabled(fileLoaded);
+            showIntGraphicsMenuItem.setEnabled(fileLoaded);
         }
         // Обработчик, вызываемый после того, как меню исчезло с экрана
         public void menuDeselected(MenuEvent e) {

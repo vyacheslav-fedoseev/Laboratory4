@@ -21,6 +21,7 @@ public class GraphicsDisplay extends JPanel {
     // Флаговые переменные, задающие правила отображения графика
     private boolean showAxis = true;
     private boolean showMarkers = true;
+    private boolean showIntGraphics = false;
     // Границы диапазона пространства, подлежащего отображению
     private double minX;
     private double maxX;
@@ -45,7 +46,7 @@ public class GraphicsDisplay extends JPanel {
                 BasicStroke.JOIN_ROUND, 10.0f, new float[] {2,1,1,1,1,1,1,1,2,1,1,1,2}, 0.0f);
         // Перо для рисования целой части графика
         graphicsIntStroke = new BasicStroke(3.0f, BasicStroke.CAP_BUTT,
-                BasicStroke.JOIN_ROUND, 10.0f, new float[] {1,1}, 0.0f);
+                BasicStroke.JOIN_ROUND, 10.0f, null, 0.0f);
         // Перо для рисования осей координат
         axisStroke = new BasicStroke(2.0f, BasicStroke.CAP_BUTT,
                 BasicStroke.JOIN_MITER, 10.0f, null, 0.0f);
@@ -74,6 +75,11 @@ public class GraphicsDisplay extends JPanel {
 
     public void setShowMarkers(boolean showMarkers) {
         this.showMarkers = showMarkers;
+        repaint();
+    }
+
+    public void setShowIntGraphics(boolean showIntGraphics) {
+        this.showIntGraphics = showIntGraphics;
         repaint();
     }
 
@@ -143,7 +149,7 @@ public class GraphicsDisplay extends JPanel {
         // Затем отображается сам график
         paintGraphics(canvas);
         // А затем график "целая часть функции"
-        paintIntUnitOfGraphics(canvas);
+        if (showIntGraphics) paintIntUnitOfGraphics(canvas);
         // Затем (если нужно) отображаются маркеры точек, по которым строился график.
         if (showMarkers) paintMarkers(canvas);
         // Шаг 9 - Восстановить старые настройки холста
