@@ -277,6 +277,11 @@ public class GraphicsDisplay extends JPanel {
         canvas.setFont(axisFont);
         // Создать объект контекста отображения текста - для получения характеристик устройства (экрана)
         FontRenderContext context = canvas.getFontRenderContext();
+
+        Point2D.Double labelPos1 = xyToPoint(0, 0);
+        // Вывести надпись в точке с вычисленными координатами
+        canvas.drawString("0", (float) labelPos1.getX() + 20,
+                (float) (labelPos1.getY() - 20));
         // Определить, должна ли быть видна ось Y на графике
         if (minX <= 0.0 && maxX >= 0.0) {
             // Она должна быть видна, если левая граница показываемой области (minX) <= 0.0,
