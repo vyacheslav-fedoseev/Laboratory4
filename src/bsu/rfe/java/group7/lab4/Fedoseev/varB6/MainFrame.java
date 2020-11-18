@@ -67,8 +67,6 @@ public class MainFrame extends JFrame {
         // Создать пункт меню "График"
         JMenu graphicsMenu = new JMenu("График");
         menuBar.add(graphicsMenu);
-
-
         // Создать действие для реакции на активацию элемента "Показывать оси координат"
         Action showAxisAction = new AbstractAction("Показывать оси координат") {
             public void actionPerformed(ActionEvent event) {
@@ -82,13 +80,10 @@ public class MainFrame extends JFrame {
         graphicsMenu.add(showAxisMenuItem);
         // Элемент по умолчанию включен (отмечен флажком)
         showAxisMenuItem.setSelected(true);
-
-
-
         // Повторить действия для элемента "Показывать маркеры точек"
         Action showMarkersAction = new AbstractAction("Показывать маркеры точек") {
             public void actionPerformed(ActionEvent event) {
-// по аналогии с showAxisMenuItem
+                // по аналогии с showAxisMenuItem
                 display.setShowMarkers(showMarkersMenuItem.isSelected());
             }
         };
@@ -96,11 +91,6 @@ public class MainFrame extends JFrame {
         graphicsMenu.add(showMarkersMenuItem);
         // Элемент по умолчанию включен (отмечен флажком)
         showMarkersMenuItem.setSelected(true);
-
-
-
-
-
         // Создать действие для элемента "Отобразить функцию «Целая часть f»"
         Action showIntGraphicsAction = new AbstractAction("Отобразить функцию «Целая часть f»") {
             public void actionPerformed(ActionEvent e) {
@@ -110,15 +100,10 @@ public class MainFrame extends JFrame {
         showIntGraphicsMenuItem = new JCheckBoxMenuItem(showIntGraphicsAction);
         graphicsMenu.add(showIntGraphicsMenuItem);
         showIntGraphicsMenuItem.setSelected(false);
-
-
-
-
-// Зарегистрировать обработчик событий, связанных с меню "График"
+        // Зарегистрировать обработчик событий, связанных с меню "График"
         graphicsMenu.addMenuListener(new GraphicsMenuListener());
-// Установить GraphicsDisplay в цент граничной компоновки
+        // Установить GraphicsDisplay в цент граничной компоновки
         getContentPane().add(display, BorderLayout.CENTER);
-
     }
     // Считывание данных графика из существующего файла
     protected void openGraphics(File selectedFile) {
@@ -159,7 +144,7 @@ public class MainFrame extends JFrame {
                     "файл не найден", "Ошибка загрузки данных", JOptionPane.WARNING_MESSAGE);
             return;
         } catch (IOException ex) {
-// В случае ошибки ввода из файлового потока показать сообщение об ошибке
+            // В случае ошибки ввода из файлового потока показать сообщение об ошибке
             JOptionPane.showMessageDialog(MainFrame.this, "Ошибка чтения " +
                             "координат точек из файла", "Ошибка загрузки данных",
                     JOptionPane.WARNING_MESSAGE);
